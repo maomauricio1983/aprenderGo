@@ -1,7 +1,6 @@
 package rutas
 
 import (
-	"fmt"
 	"github.com/gorilla/mux"
 	template2 "html/template"
 	"net/http"
@@ -36,20 +35,33 @@ func Nosotros(response http.ResponseWriter, request *http.Request) {
 	fmt.Println("algo desde la terminal")
 }*/
 
-// recibiendo argumentos enviados en la url
+// recibiendo argumentos enviados en la url ->    http://localhost:8080/parametros/78/mauricio
 func Parametros(response http.ResponseWriter, request *http.Request) {
+	template, err := template2.ParseFiles("templates/ejemplo/parametros.html")
 	vars := mux.Vars(request)
-	fmt.Fprintln(response, "ID= "+vars["id"]+"  | SLUG= "+vars["slug"])
+	texto := "prueba de parametros"
+	data := map[string]string{
+		"id":    vars["id"],
+		"slug":  vars["slug"],
+		"texto": texto,
+	}
+	if err != nil {
+		panic(err)
+	} else {
+		template.Execute(response, data)
+	}
 }
 
+// recibe parametros desde la url     http://localhost:8080/parametros-query-string?id=78&slug=mauricio
 func ParametrosQueryString(response http.ResponseWriter, request *http.Request) {
-	fmt.Fprintln(response, request.URL)                     // devuelve toda la url:  /parametros-query-string?id=78&slug=mauricio
-	fmt.Fprintln(response, request.URL.RawQuery)            // devuelve los parametros : id=78&slug=mauricio
-	fmt.Fprintln(response, request.URL.Query())             // devuelve los parametros como un mapa : map[id:[78] slug:[mauricio]]
-	fmt.Fprintln(response, request.URL.Query().Get("id"))   // devuelve el parametro solicitado: id
-	fmt.Fprintln(response, request.URL.Query().Get("slug")) // devuelve el parametro solicitado: slug
-
-	id := request.URL.Query().Get("id") // lo guardamos en una variable id
-	slug := request.URL.Query().Get("slug")
-	fmt.Fprintln(response, "id= %s | slug= %s", id, slug) // lo guardamos en una variable slug
+	template, err := template2.ParseFiles("templates/ejemplo/parametros_querystring.html")
+	data := map[string]string{
+		"id":   request.URL.Query().Get("id"),
+		"slug": request.URL.Query().Get("slug"),
+	}
+	if err != nil {
+		panic(err)
+	} else {
+		template.Execute(response, data)
+	}
 }
