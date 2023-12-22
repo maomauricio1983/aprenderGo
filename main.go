@@ -18,6 +18,7 @@ func main() {
 	mux.HandleFunc("/nosotros", rutas.Nosotros)
 	mux.HandleFunc("/parametros/{id:.*}/{slug:.*}", rutas.Parametros) // ruta con parametros
 	mux.HandleFunc("/parametros-query-string", rutas.ParametrosQueryString)
+	mux.HandleFunc("/estructuras", rutas.Estructuras)
 
 	// ejecucion del servidor
 	errorVariables := godotenv.Load()

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Estructuras</title>
+</head>
+<body>
+
+<h1>Estructuras</h1>
+
+<h3>Declaracion de Variables</h3>
+<!--  definimos la variable-->
+{{with $valor:= "Mi valor con ñandu"}}
+
+<!--mostramos el valor de la variable-->
+<p>{{$valor}}</p>
+{{end}}
+
+
+<hr>
+<h3>Valores desde un struct</h3>
+<ul>
+    <li>Nombre: {{.Nombre}}</li>
+    <li>Edad: {{.Edad}}</li>
+    <li>Perfil: {{.Perfil}}</li>
+</ul>
+
+<hr>
+<h3>Condicionales</h3>
+<!--
+Operadores lógicos
+not !
+and &&
+or ||
+
+Operadores condicionales
+eq ==
+ne !=
+lt <
+le <=
+gt >
+>= ge
+-->
+
+{{ if ge .Edad 18 }}
+<p>Eres mayor de edad</p>
+{{else}}
+<p>Eres menor de edad</p>
+{{end}}
+
+{{if eq .Perfil 1 }}
+<p>Eres administrador</p>
+{{else}}
+<p>Tienes otro perfil</p>
+{{end}}
+</body>
+</html>
