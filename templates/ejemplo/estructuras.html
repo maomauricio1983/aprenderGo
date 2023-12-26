@@ -53,5 +53,16 @@ gt >
 {{else}}
 <p>Tienes otro perfil</p>
 {{end}}
+
+<hr />
+
+<!--recorriendo un slice-->
+<h3>Iteraciones</h3>
+{{.Habilidades}}
+<ul>
+    {{ range .Habilidades }}
+    <li>{{.Nombre}}</li>
+    {{end}}
+</ul>
 </body>
 </html>

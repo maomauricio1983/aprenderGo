@@ -66,11 +66,16 @@ func Home(response http.ResponseWriter, request *http.Request) {
 	}
 }
 
+type Habilidad struct {
+	Nombre string
+}
+
 // Objeto de tipo Datos
 type Datos struct {
-	Nombre string
-	Edad   int
-	Perfil int
+	Nombre      string
+	Edad        int
+	Perfil      int
+	Habilidades []Habilidad
 }
 
 func Estructuras(response http.ResponseWriter, request *http.Request) {
@@ -78,6 +83,10 @@ func Estructuras(response http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		panic(err)
 	} else {
-		template.Execute(response, Datos{"Mauricio", 42, 1})
+		habilidad1 := Habilidad{"Inteligencia"}
+		habilidad2 := Habilidad{"Videojuegos"}
+		habilidad3 := Habilidad{"Deportes"}
+		habilidades := []Habilidad{habilidad1, habilidad2, habilidad3}
+		template.Execute(response, Datos{"Mauricio", 42, 1, habilidades})
 	}
 }
