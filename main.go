@@ -20,6 +20,10 @@ func main() {
 	mux.HandleFunc("/parametros-query-string", rutas.ParametrosQueryString)
 	mux.HandleFunc("/estructuras", rutas.Estructuras)
 
+	//configuracion para el cargue de archivos estaticos hacia mux (imagenes)
+	s := http.StripPrefix("/public/", http.FileServer(http.Dir("./public/")))
+	mux.PathPrefix("/public/").Handler(s)
+
 	// ejecucion del servidor
 	errorVariables := godotenv.Load()
 	if errorVariables != nil {
